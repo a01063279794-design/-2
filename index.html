@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="인구수에 따른 협력사업 예산 한도와 승인·반려 판정을 확인합니다.">
+  <title>협력사업 예산 심사 | 지자체별 자동 판정</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <p class="eyebrow">협력사업 · 예산 심사</p>
+      <h1>지자체별 승인/반려 자동 판정</h1>
+      <p class="description">신청 목록을 불러와 인구수 기준 한도액과 비교합니다.</p>
+    </header>
+
+    <aside class="rule" aria-label="심사 규칙">
+      <strong>한도액 = 인구수 × 10</strong>
+      <p>신청액이 한도액보다 크면 반려하며, 같거나 작으면 승인합니다.</p>
+    </aside>
+
+    <section class="summary" aria-label="심사 요약">
+      <article class="metric">
+        <h2>승인 건수</h2>
+        <p><span id="approved-count">—</span><span class="unit">건</span></p>
+      </article>
+      <article class="metric">
+        <h2>반려 건수</h2>
+        <p><span id="rejected-count">—</span><span class="unit">건</span></p>
+      </article>
+      <article class="metric">
+        <h2>승인 신청액 합계</h2>
+        <p><span id="approved-total">—</span></p>
+      </article>
+    </section>
+
+    <section class="results" aria-labelledby="results-title" aria-busy="true" id="results">
+      <div class="section-heading">
+        <h2 id="results-title">지자체별 심사 결과</h2>
+        <span id="record-count">불러오는 중</span>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite">신청목록.json을 불러오고 있습니다.</p>
+      <div class="error" id="error-panel" role="alert" hidden>
+        <p id="error-message"></p>
+        <button type="button" id="retry-button">다시 불러오기</button>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="지자체별 심사 표. 화면이 좁으면 좌우로 스크롤하세요.">
+        <table>
+          <caption class="sr-only">지자체별 인구수, 신청액, 한도액과 자동 판정 결과입니다.</caption>
+          <thead>
+            <tr>
+              <th scope="col">지자체명</th>
+              <th scope="col" class="number">인구수</th>
+              <th scope="col" class="number">신청액</th>
+              <th scope="col" class="number">한도액</th>
+              <th scope="col" class="decision">판정</th>
+            </tr>
+          </thead>
+          <tbody id="application-list"></tbody>
+        </table>
+      </div>
+      <p class="table-note">인구수의 단위는 명이며, 금액은 입력 자료와 동일한 단위로 표시합니다.</p>
+    </section>
+    <footer>자료는 신청목록.json에서 읽으며, 페이지를 새로 고치면 다시 판정합니다.</footer>
+  </main>
+</body>
+</html>
